@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步加载js</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="app.css">
+	<!-- load.js script.js head.js 都可以帮助我们异步的方式加载JS文件 -->
+	<script src="bower_components/script.js/dist/script.js"></script>
+	<!-- angular-loader的作用就是在使用一些异步加载脚本的库的时候，自动控制依赖顺序 -->
+	<script src="bower_components/angular-loader/angular-loader.js"></script>
+	<script>
+		$script([
+			'./bower_components/angular/angular.js',
+			'./bower_components/angular-route/angular-route.js',
+			'./movie_detail/controller.js',
+			'./movie_list/controller.js',
+			'./components/http.js',
+			'./components/auto-focus.js',
+			'./components/search.js',
+			'./components/loading.js',
+			'./app.js'// 由于这个包比较小，下载完成过后就直接执行
+		], function () {
+//			console.log(angular);
+			//手动加载模块，bootstrap:引导程序,['moviecat']应用到document上
+			angular.bootstrap(document, ['moviecat']);
+			// console.log(jQuery);
+		});
+	</script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">豆瓣电影</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Dashboard</a></li>
+			</ul>
+			<div search></div>
+		</div>
+	</div>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li auto-focus><a href="#/in_theaters/1">正在热映</a></liautoFocus>
+				<li auto-focus><a href="#/coming_soon/1">即将上映</a></li>
+				<li auto-focus><a href="#/top250/1">Top250</a></li>
+			</ul>
+			<div search></div>
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
+
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
